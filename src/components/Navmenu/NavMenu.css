@@ -1,7 +1,21 @@
+.navmenu__item .link:hover:before, .navmenu__item .active:before {
+  position: absolute;
+  content: "";
+  background: red;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+}
+
 .navmenu__items {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
 }
 
 .navmenu__item {
@@ -10,7 +24,22 @@
   font-size: 1rem;
   margin-right: 2rem;
   font-weight: bold;
+}
+
+.navmenu__item .link {
   text-decoration: none;
+  padding-bottom: 10px;
+  display: block;
+  position: relative;
+  color: white;
+}
+
+.navmenu__item .link:hover {
+  color: red;
+}
+
+.navmenu__item .active {
+  color: red;
 }
 
 .navmenu__item:last-child {
