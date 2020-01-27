@@ -1,0 +1,13 @@
+.footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 2rem;
+  background: pink;
+  color: white;
+}
+/*# sourceMappingURL=Footer.css.map */

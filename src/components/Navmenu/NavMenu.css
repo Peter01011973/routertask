@@ -1,0 +1,19 @@
+.navmenu__items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.navmenu__item {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-size: 1rem;
+  margin-right: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navmenu__item:last-child {
+  margin-left: 5rem;
+}
+/*# sourceMappingURL=NavMenu.css.map */

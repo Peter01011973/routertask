@@ -1,0 +1,18 @@
+@import '../../global.scss';
+
+.navmenu {
+    &__items {
+        display: flex;
+    }
+    &__item {
+        font-family: $font;
+        color: $headerFooterFontColor;
+        font-size: 1rem;
+        margin-right: 2rem; 
+        font-weight: bold;
+        text-decoration: none;   
+    }
+    &__item:last-child {
+        margin-left: 5rem;
+    }
+}
