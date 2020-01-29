@@ -1,32 +1,43 @@
 import React, {useState} from 'react';
 import './Login.css';
-// import { useForm } from "react-hook-form";
+import tryAuth from '../../Services/FBAuthService/FBAuthService';
+import CustomizedSnackbars from '../../components/UI/Snackbar/Snackbar';
+import AuthForm from '../../components/AuthForm/AuthForm';
 
-const Login = ({handleLogin, ...rest}) => {
-    const [email, setEmail] = useState('');
+const Login = ({handleLogin, location, history}) => {
+    const [isLoading, setLoading] = useState(false);
+    const [isError, setError] = useState(false);
 
-    const handleAuthSubmit = event => {     
-        const authForm = {
-            email: event.target['email'].value,
+    const handleAuthSubmit = async (email) => {
+        console.log(email);
+        
+        const authData = {
+            email,
             password: '111111'
         }
-        handleLogin(authForm);
-        event.preventDefault()
-    }
 
-    const handleChange = event => {
-        setEmail(event.target.value);
-    };
+        setError(false);
+        setLoading(true);
+        try {
+            const response = await tryAuth(authData)
+            if (response && response.data && response.data.localId) {
+                localStorage.setItem('token', response.data.localId);
+                handleLogin(authData);
+                setLoading(false);
+                if (location.state) { history.replace(location.state.from) }
+            }
+        } catch (error) {
+            setError(true);
+            setLoading(false);
+        }
+    }
 
     return (
         <div className='login'>
+            {isLoading && <h4>Loading ...</h4>}
+            {isError && <CustomizedSnackbars />}
             <h1 className='login__title'>Authorization</h1>
-            <form className='login__form' onSubmit={handleAuthSubmit}>
-                <label className='login__form__input'> Email:  
-                    <input  name='email' type="text" value = {email} onChange={handleChange}/>
-                </label>
-                <button type='submit'>Submit</button>
-            </form>
+            <AuthForm handleAuthSubmit = {handleAuthSubmit}/>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Layout from './HOC/Layout/Layout';
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -7,53 +7,60 @@ import News from './containers/News/News';
 import Profile from './containers/Profile/Profile';
 import Login from './containers/Login/Login';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import tryAuth from './Services/FBAuthService/FBAuthService';
+import Logout from './containers/Logout/Logout';
+
 // TODO useEffect which get localStorage 'token' and setAuth 
 
-function App({location, history}) {
+function App({history}) {
   const [auth, setAuth] = useState(false);
-  const [isLoading, setLoading] = useState(false);
+  // const [firstLaunch, setFirstLaunch] = useState(true);
+  useEffect(
+    ()=>console.log('I am an effect: ',auth),[auth]
+  )
 
-  const handleLogin = authData => {
-    let response = null;
-    setLoading(true);
-
-    tryAuth(authData).then(
-      data =>{
-        response = data; 
-        setLoading(false);       
-        if (response && response.data && response.data.localId) {          
-          localStorage.setItem('token', response.data.localId);
-          setAuth(true);
-        }    
-        if (location.state.from) {history.replace(location.state.from)}
-      }
-    );
-    // const reqestData={...authData,returnSecureToken: true}
-    // try {
-    //   // TODO service for async
-    //   const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBqymITIAQwvv51M9pXu0jnJ2gA8ncXnTA', reqestData);
-    //   // authData.localId = response.data.localId;
-    //   if (response && response.data && response.data.localId) {
-    //     localStorage.setItem('token', response.data.localId);
-    //     setAuth(true);
-    //   }
+  // const [count, setCount] = useState(0);
+  // useEffect(() => {
+  //   const id = setInterval(() => {
+  //     setCount(count + 1);
+  //     console.log(count);
       
-    //   if (location.state.from) {history.replace(location.state.from)}
-    // } catch (e) {
-    //   // TODO toaster, matireal ui
-    //   alert('Everything is bad! Login failed!', e);
-    // }
+  //   }, 1000);
+  //   return () => clearInterval(id);
+  // }, [count]);
+
+
+  useEffect(
+    ()=> {
+      console.log('I am an effect for tracking localStorage!');
+      const token = localStorage.getItem('token');
+      if (token) setAuth(true);
+      // setFirstLaunch(false)
+    }, []
+  )
+
+  const handleLogin = () => {
+    setAuth(true);
   }
-  if (isLoading) {return <h1>Loading</h1>}
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setAuth(false);
+    history.push('/');
+  }
+
+// 1. How to invoke Snakebar in FBAuthService
+// 2. How to use Loader in wright way.
+// 3. Show Dima for review Logout component.
+
   return (
     <div className="App">
-      <Layout>
+      <Layout auth={auth}>
         <Switch>
           <Route exact path='/'><Home /></Route>
           <Route path='/news'><News /></Route>
           <ProtectedRoute path='/profile' component={Profile} auth={auth}/>
           // TODO component method to do in login
+          <Route path='/logout' render = {props =><Logout handleLogout={handleLogout} {...props}/>}/>
           <Route path='/login' render = {props =><Login handleLogin={handleLogin} {...props}/>}/>
         </Switch>
       </Layout> 

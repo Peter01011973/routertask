@@ -3,7 +3,7 @@ import './Header.css';
 import Logo from '../Logo/Logo';
 import Navmenu from '../Navmenu/Navmenu';
 
-const Header = () => {
+const Header = ({auth}) => {
     return (
         <div className='header'>
             <div className='header__container'>
@@ -11,7 +11,7 @@ const Header = () => {
                     <Logo title = {'My router task'}/>
                 </div>
                 <div className='header__container__navmenu'>
-                    <Navmenu />
+                    <Navmenu auth={auth}/>
                 </div>
             </div>
             
