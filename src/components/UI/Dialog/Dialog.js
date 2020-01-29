@@ -10,15 +10,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export default function AlertDialog() {
   const [open, setOpen] = useState(true);
 
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  const handleClose = () => {
+    setOpen(false);
+  };
   console.log('Ky');
   
 
   return (
     <div>
-      {/* <Dialog
+      <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
@@ -35,7 +35,7 @@ export default function AlertDialog() {
             Close
           </Button>
         </DialogActions>
-      </Dialog> */}
+      </Dialog>
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react';
 import axios from 'axios';
-import AlertDialog from '../../components/UI/Dialog/Dialog';
+// import AlertDialog from '../../components/UI/Dialog/Dialog';
 
 const tryAuth = async authData => {
     const reqestData = { ...authData, returnSecureToken: true }
