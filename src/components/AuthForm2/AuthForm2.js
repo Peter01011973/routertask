@@ -45,8 +45,7 @@ const AuthForm2 = ({handleAuthSubmit}) => {
     const [formObject, setFormObject] = useState(initialState);
 
     const handleSubmit = (event) => {
-        console.log('submit');
-        
+       
         event.preventDefault();
         const formControls = {...formObject.formControls};
         Object.keys(formControls).forEach(
@@ -58,22 +57,16 @@ const AuthForm2 = ({handleAuthSubmit}) => {
         // handleAuthSubmit(formObject.formControls['email'].value);
     }
 
-    // const handleChange = (event, controlName) => {
-    //     // const formControls = {...formObject.formControls};
-    //     // console.log('formControls', formControls);
-    //     // const control = {...formControls[controlName]};
-    //     // console.log('control', control);
-    //     // control.value = event.target.value;
-    //     // console.log('control.value', control.value);
-    //     const formControls = {...formObject.formControls};
-    //     const control = {...formControls[controlName]};
-    //     control.value = event.target.value;
-        
-        
-    //     // setFormObject({ formControls. });   
-    // }
+    const handleChange = (event, controlName) => {
+        const formControls = {...formObject.formControls};
+        const control = {...formControls[controlName]};
+        control.value = event.target.value;
+        formControls[controlName] = control;
+        setFormObject({formControls, isFormValid: formObject.isFormValid});   
+    }
 
     const renderInputs =() => {
+
         return Object.keys(formObject.formControls).map((controlName, index) => {
             const control = formObject.formControls[controlName];
             
@@ -81,14 +74,13 @@ const AuthForm2 = ({handleAuthSubmit}) => {
                 <Input 
                     key = {controlName + index}
                     type = {control.type}
-                    // value = {control.value}
+                    value = {control.value}
                     label = {control.label}
                     errorMsg = {control.errorMsg}
                     valid = {control.valid}
-                    // ref = {input => }
                     // touched = {control.touched}
                     shouldValidate = {!!control.validation}
-                    // onChange = {(event) => handleChange(event, controlName)}
+                    onChange = {(event) => handleChange(event, controlName)}
                 />
             )
         })    
