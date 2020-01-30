@@ -2,9 +2,11 @@ import React from 'react';
 import './Input.css';
 
 const Input = ({ valid, touched, shouldValidate, type, label, value, onChange, errorMsg }) => {
+    // const Input = ({ valid, touched, shouldValidate, type, label, value, onChange, errorMsg }) => {
 
     const isInvalidV = !valid && shouldValidate && touched;
-    const inputType = type || 'text'
+    // const inputType = type || 'text'
+    const inputType = 'text'
     const htmlFor = `${label}-${Math.random()}`;
     let _class = 'Input';
 

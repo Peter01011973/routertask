@@ -10,6 +10,7 @@ const Navmenu = ({auth}) => {
                     <li className='navmenu__item'> <NavLink className='link' activeClassName='active' exact to='/'>Home</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/news'>News</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/profile'>Profile</NavLink></li>
+                    <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/login2'>Login2</NavLink></li>
                     {auth ? 
                         <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/logout'>Logout</NavLink></li>
                         : <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/login'>Login</NavLink></li>

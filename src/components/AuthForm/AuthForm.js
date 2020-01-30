@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './AuthForm.css';
 import Input from '../UI/Input/Input';
+import Button from '../UI/Button/Button';
 
 function validateEmail(email) {
     // eslint-disable-next-line
@@ -10,6 +11,7 @@ function validateEmail(email) {
 
 const initialState = {
     isFormValid: false,
+    isFormTouched: false,
     formControls: {
         email: {
             value: '',
@@ -76,7 +78,6 @@ const AuthForm = ({handleAuthSubmit}) => {
     }
 
     const onChangeHandler = (event, controlName) => {
-        console.log(`${controlName}: `, event.target.value);
         const formControls = {...formObject.formControls};
         const control = {...formControls[controlName]};
         control.value = event.target.value;
@@ -84,16 +85,22 @@ const AuthForm = ({handleAuthSubmit}) => {
         control.valid = validateControl(control.value, control.validation)
         formControls[controlName] = control;
         let isFormValid = true;
-        Object.keys(formControls).forEach((item)=>isFormValid = formControls[item].valid && isFormValid)      
-        setFormObject({ formControls, isFormValid });
+        let isFormTouched = true;
+        Object.keys(formControls).forEach(
+            (item)=>{ 
+                isFormValid = formControls[item].valid && isFormValid;
+                isFormTouched = formControls[item].touched && isFormTouched 
+            }
+        ); 
+        setFormObject({ formControls, isFormTouched, isFormValid }); 
     }
-
+    
     return (
         <div>
             <form className='login__form' onSubmit={handleSubmit}>
                 {renderInputs()}
                 {/* <p>{formObject.formControls['email'].value}</p> */}
-                <button type='submit'>Submit</button>
+                <Button type='success' disabled={!(formObject.isFormValid && formObject.isFormTouched)}>Submit</Button>
             </form>
         </div>
     )
