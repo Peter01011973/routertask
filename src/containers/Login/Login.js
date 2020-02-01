@@ -10,11 +10,11 @@ const Login = ({handleLogin, location, history}) => {
 
     const [{response, error, isLoading}, doFetch] = useFetch();
 
-    const handleAuthSubmit = async (email) => {
+    const handleAuthSubmit = (email) => {
         // console.log(email);
         
         const user = {
-            email,
+            email: 'maliar@zfort.com',
             password: '111111',
             returnSecureToken: true
         }
@@ -22,8 +22,9 @@ const Login = ({handleLogin, location, history}) => {
         // setError(false);
         // setLoading(true);
         doFetch({
-            // method: 'post',
-            user
+            method: 'post',
+            user 
+            // user
         });
         // try {
         //     const response = await tryAuth(authData)
