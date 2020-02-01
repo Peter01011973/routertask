@@ -10,6 +10,7 @@ function validateEmail(email) {
 }
 
 const initialState = {
+   select: 'coconut',
     isFormValid: false,
     // isFormTouched: false,
     formControls: {
@@ -54,6 +55,7 @@ const AuthForm2 = ({handleAuthSubmit}) => {
                 // isFormValid = formControls[item].valid && isFormValid;
             }
         ); 
+        alert(JSON.stringify(formObject))
         // handleAuthSubmit(formObject.formControls['email'].value);
     }
 
@@ -62,7 +64,7 @@ const AuthForm2 = ({handleAuthSubmit}) => {
         const control = {...formControls[controlName]};
         control.value = event.target.value;
         formControls[controlName] = control;
-        setFormObject({formControls, isFormValid: formObject.isFormValid});   
+        setFormObject({...formObject, formControls, isFormValid: formObject.isFormValid});   
     }
 
     const renderInputs =() => {
@@ -95,6 +97,10 @@ const AuthForm2 = ({handleAuthSubmit}) => {
         return isValid
     }
 
+    const handleChange1 = (event) => {
+       setFormObject({...formObject, select: event.target.value })
+    }
+    
     // const onChangeHandler = (event, controlName) => {
     //     const formControls = {...formObject.formControls};
     //     const control = {...formControls[controlName]};
@@ -113,15 +119,24 @@ const AuthForm2 = ({handleAuthSubmit}) => {
     //     setFormObject({ formControls, isFormTouched, isFormValid }); 
     // }
     
-    return (
-        <div>
-            <form className='login__form' onSubmit={handleSubmit}>
-                {renderInputs()}
-                {/* <p>{formObject.formControls['email'].value}</p> */}
-                <Button type='success'>Submit</Button>
-            </form>
-        </div>
-    )
+   return (
+      <div>
+         <form className='login__form' onSubmit={handleSubmit}>
+            {renderInputs()}
+            {/* <p>{formObject.formControls['email'].value}</p> */}
+            <label>
+               Выберите ваш любимый вкус:
+          <select value={formObject.select} onChange={handleChange1}>
+                  <option value="grapefruit">Грейпфрут</option>
+                  <option value="lime">Лайм</option>
+                  <option value="coconut">Кокос</option>
+                  <option value="mango">Манго</option>
+               </select>
+            </label>
+            <Button type='success'>Submit</Button>
+         </form>
+      </div>
+   )
 }
 
 export default AuthForm2
