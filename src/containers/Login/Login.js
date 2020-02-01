@@ -22,7 +22,7 @@ const Login = ({handleLogin, location, history}) => {
             const response = await tryAuth(authData)
             if (response && response.data && response.data.localId) {
                 localStorage.setItem('token', response.data.localId);
-                handleLogin(authData);
+                handleLogin();
                 setLoading(false);
                 if (location.state) { history.replace(location.state.from) }
             }

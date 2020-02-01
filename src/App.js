@@ -41,7 +41,7 @@ function App({history}) {
           <Route exact path='/'><Home /></Route>
           <Route path='/news'><News /></Route>
           <ProtectedRoute path='/profile' component={Profile} auth={auth}/>
-          <Route path='/login2' component={Login2}/>
+          {/* <Route path='/login2' component={Login2}/> */}
           // TODO component method to do in login
           <Route path='/logout' render = {props =><Logout handleLogout={handleLogout} {...props}/>}/>
           <Route path='/login' render = {props =><Login handleLogin={handleLogin} {...props}/>}/>
