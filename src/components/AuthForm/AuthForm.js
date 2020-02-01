@@ -46,7 +46,7 @@ const AuthForm = ({handleAuthSubmit}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        handleAuthSubmit(formObject.formControls['email'].value);
+        handleAuthSubmit(formObject.formControls['email'].value, formObject.formControls['password'].value);
     }
 
     const renderInputs =() => {

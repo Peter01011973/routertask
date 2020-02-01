@@ -8,12 +8,12 @@ const Login = ({handleLogin, location, history}) => {
     const [isLoading, setLoading] = useState(false);
     const [isError, setError] = useState(false);
 
-    const handleAuthSubmit = async (email) => {
-        console.log(email);
+    const handleAuthSubmit = async (email, password) => {
+        console.log(email, password);
         
         const authData = {
             email,
-            password: '111111'
+            password
         }
 
         setError(false);
