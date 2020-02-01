@@ -3,33 +3,44 @@ import './Login.css';
 import tryAuth from '../../Services/FBAuthService/FBAuthService';
 import CustomizedSnackbars from '../../components/UI/Snackbar/Snackbar';
 import AuthForm from '../../components/AuthForm/AuthForm';
+import useFetch from '../../hooks/useFetch';
 
 const Login = ({handleLogin, location, history}) => {
-    const [isLoading, setLoading] = useState(false);
+    // const [isLoading, setLoading] = useState(false);
     const [isError, setError] = useState(false);
+
+    const [{response, error, isLoading}, doFetch] = useFetch();
 
     const handleAuthSubmit = async (email) => {
         // console.log(email);
         
-        const authData = {
+        const user = {
             email,
             password: '111111'
         }
 
         setError(false);
         setLoading(true);
-        try {
-            const response = await tryAuth(authData)
+        doFetch({
+            method: 'post',
+            user
+        });
+
+        useEffect(() => {
             if (response && response.data && response.data.localId) {
                 localStorage.setItem('token', response.data.localId);
-                handleLogin(authData);
+                handleLogin();
                 setLoading(false);
                 if (location.state) { history.replace(location.state.from) }
             }
-        } catch (error) {
-            setError(true);
-            setLoading(false);
-        }
+        }, [response])
+        // try {
+        //     const response = await tryAuth(authData)
+
+        // } catch (error) {
+        //     setError(true);
+        //     setLoading(false);
+        // }
     }
 
     return (
