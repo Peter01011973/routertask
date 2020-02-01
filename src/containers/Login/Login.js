@@ -9,7 +9,7 @@ const Login = ({handleLogin, location, history}) => {
     const [isError, setError] = useState(false);
 
     const handleAuthSubmit = async (email) => {
-        console.log(email);
+        // console.log(email);
         
         const authData = {
             email,
