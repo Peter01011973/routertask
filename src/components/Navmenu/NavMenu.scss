@@ -41,7 +41,7 @@
             @extend %menuItem;
         }        
     }
-    &__item:last-child {
+    &__item:nth-child(4) {
         margin-left: 5rem;    
     }
 }

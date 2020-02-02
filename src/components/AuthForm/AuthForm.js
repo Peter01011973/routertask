@@ -40,33 +40,33 @@ const initialState = {
     }
 }
 
-const AuthForm = ({handleAuthSubmit}) => {
+const AuthForm = ({handleAuthSubmit, isLoading}) => {   
 
     const [formObject, setFormObject] = useState(initialState);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        handleAuthSubmit(formObject.formControls['email'].value);
+        handleAuthSubmit(formObject.formControls['email'].value, formObject.formControls['password'].value);
     }
 
-    const renderInputs =() => {
-        return Object.keys(formObject.formControls).map((controlName, index) => {
-            const control = formObject.formControls[controlName];
-            return (
-                <Input 
-                    key = {controlName + index}
-                    type = {control.type}
-                    value = {control.value}
-                    label = {control.label}
-                    errorMsg = {control.errorMsg}
-                    valid = {control.valid}
-                    touched = {control.touched}
-                    shouldValidate = {!!control.validation}
-                    onChange = {(event) => onChangeHandler(event, controlName)}
-                />
-            )
-        })    
-    }
+    const renderInputs = Object.keys(formObject.formControls).map((controlName, index) => {
+        const control = formObject.formControls[controlName];   
+        
+        return (
+            <Input
+                key={controlName + index}
+                type={control.type}
+                value={control.value}
+                label={control.label}
+                errorMsg={control.errorMsg}
+                valid={control.valid}
+                touched={control.touched}
+                shouldValidate={!!control.validation}
+                onChange={(event) => onChangeHandler(event, controlName)}
+                // type="text" style="display: none" autocomplete="off"
+            />
+        )
+    })       
 
     const validateControl = (value, validation) => {
         if (!validation) { return true }
@@ -98,9 +98,8 @@ const AuthForm = ({handleAuthSubmit}) => {
     return (
         <div>
             <form className='login__form' onSubmit={handleSubmit}>
-                {renderInputs()}
-                {/* <p>{formObject.formControls['email'].value}</p> */}
-                <Button type='success' disabled={!(formObject.isFormValid && formObject.isFormTouched)}>Submit</Button>
+                {renderInputs}
+                <Button type='success' disabled={!(formObject.isFormValid && formObject.isFormTouched) || isLoading}>Submit</Button>
             </form>
         </div>
     )

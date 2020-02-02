@@ -10,6 +10,9 @@ const Header = ({auth}) => {
                 <div className='header__container__logo'>
                     <Logo title = {'My router task'}/>
                 </div>
+                <div className='header__container__user'>
+                    {auth ? <h3>Welcome {auth}</h3> : null}
+                </div>
                 <div className='header__container__navmenu'>
                     <Navmenu auth={auth}/>
                 </div>

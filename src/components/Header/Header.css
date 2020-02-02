@@ -29,4 +29,9 @@
   -ms-flex-preferred-size: 20%;
       flex-basis: 20%;
 }
+
+.header__container__user {
+  -ms-flex-preferred-size: 20%;
+      flex-basis: 20%;
+}
 /*# sourceMappingURL=Header.css.map */

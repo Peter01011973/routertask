@@ -2,22 +2,26 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavMenu.css';
 
-const Navmenu = ({auth}) => {
+const Navmenu = ({ auth }) => {
+
+    const signInANDsingUp = (
+        <>
+            <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/register'>Sign Up</NavLink></li>
+            <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/login'>Sing In</NavLink></li>
+        </>
+    )
+           
     return (
         <div className='navmenu'>
-            {/* <div className='navmenu__items'> */}
                 <ul className='navmenu__items'>
                     <li className='navmenu__item'> <NavLink className='link' activeClassName='active' exact to='/'>Home</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/news'>News</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/profile'>Profile</NavLink></li>
-                    {/* <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/login2'>Login2</NavLink></li> */}
                     {auth ? 
                         <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/logout'>Logout</NavLink></li>
-                        : <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/login'>Login</NavLink></li>
+                        : signInANDsingUp
                     }
-                </ul>
-            {/* </div> */}
-            
+                </ul>       
         </div>
     )
 }

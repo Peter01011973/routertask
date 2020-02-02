@@ -5,47 +5,28 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import Home from './containers/Home/Home';
 import News from './containers/News/News';
 import Profile from './containers/Profile/Profile';
-import Login from './containers/Login/Login';
-// import Login2 from './containers/Login2/Login2';
+import Authorization from './containers/Authorization/Authorization';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Logout from './containers/Logout/Logout';
 
-// TODO useEffect which get localStorage 'token' and setAuth 
-
 function App({history}) {
-  const [auth, setAuth] = useState(false);
-  // const [firstLaunch, setFirstLaunch] = useState(true);
-  useEffect(
-    ()=>console.log('I am an effect: ',auth),[auth]
-  )
-
-  // const [count, setCount] = useState(0);
-  // useEffect(() => {
-  //   const id = setInterval(() => {
-  //     setCount(count + 1);
-  //     console.log(count);
-      
-  //   }, 1000);
-  //   return () => clearInterval(id);
-  // }, [count]);
-
+  const [auth, setAuth] = useState(null);
 
   useEffect(
     ()=> {
-      console.log('I am an effect for tracking localStorage!');
+      const email = localStorage.getItem('email');
       const token = localStorage.getItem('token');
-      if (token) setAuth(true);
-      // setFirstLaunch(false)
+      if (token) setAuth(email);
     }, []
   )
 
-  const handleLogin = () => {
-    setAuth(true);
+  const handleLogin = (email) => {
+    setAuth(email);
   }
 
   const handleLogout = () => {
     localStorage.clear();
-    setAuth(false);
+    setAuth(null);
     history.push('/');
   }
 
@@ -56,9 +37,9 @@ function App({history}) {
           <Route exact path='/'><Home /></Route>
           <Route path='/news'><News /></Route>
           <ProtectedRoute path='/profile' component={Profile} auth={auth}/>
-          {/* <Route path='/login2' component={Login2}/> */}
           <Route path='/logout' render = {props =><Logout handleLogout={handleLogout} {...props}/>}/>
-          <Route path='/login' render = {props =><Login handleLogin={handleLogin} {...props}/>}/>
+          <Route path='/login' render = {props =><Authorization handleLogin={handleLogin} {...props}/>}/>
+          <Route path='/register' render = {props =><Authorization handleLogin={handleLogin} {...props}/>}/>
         </Switch>
       </Layout> 
     </div>
@@ -66,3 +47,7 @@ function App({history}) {
 }
 
 export default withRouter(App);
+
+
+// 1. How to prevent autocomplite in input form
+// 2. How to use github in proper way

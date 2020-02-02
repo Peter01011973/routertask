@@ -18,6 +18,7 @@ const Input = ({ valid, touched, shouldValidate, type, label, value, onChange, e
                     id = {htmlFor}
                     value = {value}
                     onChange = {onChange}
+                    // autocomplete="off"
                 />
             </label>
             {isInvalidV ? <span>{errorMsg}</span> : null}
