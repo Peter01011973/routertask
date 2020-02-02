@@ -14,6 +14,7 @@ function App({history}) {
 
   useEffect(
     ()=> {
+      history.replace('/');
       const email = localStorage.getItem('email');
       const token = localStorage.getItem('token');
       if (token) setAuth(email);
