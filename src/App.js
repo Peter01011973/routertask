@@ -18,7 +18,7 @@ function App({history}) {
       const email = localStorage.getItem('email');
       const token = localStorage.getItem('token');
       if (token) setAuth(email);
-    }, []
+    }, [history]
   )
 
   const handleLogin = (email) => {

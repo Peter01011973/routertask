@@ -11,7 +11,6 @@ const Authorization = ({handleLogin, location}) => {
     const [email, setEmail] = useState(null)
     
     const isSignin = location.pathname === '/login';
-    const authType = isSignin ? 'signIn' : 'signUp';
     const authTitle = isSignin ? 'Sign IN' : 'Sign UP';
     const baseAPI = isSignin
         ? 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBqymITIAQwvv51M9pXu0jnJ2gA8ncXnTA'
@@ -25,7 +24,6 @@ const Authorization = ({handleLogin, location}) => {
             returnSecureToken: true
         }
         setEmail(email)
-        console.log('dofetch');
         
         doFetch({url: baseAPI, payload: user});
     }
@@ -37,19 +35,12 @@ const Authorization = ({handleLogin, location}) => {
             setIsSuccessfullSubmit(true);
             handleLogin(email);
         }
-    }, [response])
+    }, [email, response, handleLogin])
 
     // useEffect(() =>{ if (error)  console.log('Error', error)}, [error])
 
     if (isSuccessfullSubmit && location.state) {return <Redirect to={location.state.from}/>} 
-    else if (isSuccessfullSubmit) {return <Redirect to='/'/>}
-
-    console.log('isLoading', isLoading);
-    console.log('response', response);
-    console.log('isError',isError);
-    
-    
-    
+    else if (isSuccessfullSubmit) {return <Redirect to='/'/>}    
 
     return (
         <div className='login'>
