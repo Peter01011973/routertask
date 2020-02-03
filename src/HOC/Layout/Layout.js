@@ -3,11 +3,11 @@ import './Layout.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-const Layout = ({children, auth}) => {
+const Layout = ({children}) => {
     return (
         <div className='layout'>
             <header className='layout__header'>
-                <Header auth={auth}/>
+                <Header />
             </header>
             <main className='layout__body'>
                 {children}

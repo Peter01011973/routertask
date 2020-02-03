@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './Header.css';
 import Logo from '../Logo/Logo';
 import Navmenu from '../Navmenu/Navmenu';
+import {CurrentUserContext} from '../../HOC/context/CurrentUser';
 
-const Header = ({auth}) => {
+const Header = () => {
+    const [user] = useContext(CurrentUserContext)
     return (
         <div className='header'>
             <div className='header__container'>
@@ -11,10 +13,10 @@ const Header = ({auth}) => {
                     <Logo title = {'My router task'}/>
                 </div>
                 <div className='header__container__user'>
-                    {auth ? <h3>Welcome {auth}</h3> : null}
+                    {user ? <h3>Welcome {user}</h3> : null}
                 </div>
                 <div className='header__container__navmenu'>
-                    <Navmenu auth={auth}/>
+                    <Navmenu />
                 </div>
             </div>
             

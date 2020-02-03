@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import { CurrentUserProvider } from './HOC/context/CurrentUser';
 
-ReactDOM.render(<BrowserRouter>
-                    <App />
-                </BrowserRouter>, document.getElementById('root'));
+const app = (
+    <CurrentUserProvider>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </CurrentUserProvider>
+)
+
+ReactDOM.render(app, document.getElementById('root'));

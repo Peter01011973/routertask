@@ -1,21 +1,19 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-const useFetch = () => {
+const useFetch = (url, payload) => {
     const [response, setResponse] = useState(null);
-    const [url, setUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+    const [isError, setIsError] = useState(false);    
 
     useEffect(() => {
 
         const fetchData = async () => {
-            
-            if (!url.url) return       
+               
             setIsLoading(true);
             setIsError(false);    
             try {
-                const response = await axios.post(url.url, url.payload);
+                const response = await axios.post(url, payload);
                 setResponse(response);
             } catch (error) {
                 setIsError(true);
@@ -23,10 +21,10 @@ const useFetch = () => {
             setIsLoading(false);
         };
 
-        fetchData();
+        if (payload) fetchData();       
 
-    }, [url]);
-    return [{ response, isLoading, isError }, setUrl];
+    }, [payload, url]);
+    return [{ response, isLoading, isError }];
 };
 
 export default useFetch

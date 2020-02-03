@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavMenu.css';
+import {CurrentUserContext} from '../../HOC/context/CurrentUser';
 
-const Navmenu = ({ auth }) => {
+const Navmenu = () => {
 
+    const [user] = useContext(CurrentUserContext)
     const signInANDsingUp = (
         <>
             <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/register'>Sign Up</NavLink></li>
@@ -17,7 +19,7 @@ const Navmenu = ({ auth }) => {
                     <li className='navmenu__item'> <NavLink className='link' activeClassName='active' exact to='/'>Home</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/news'>News</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/profile'>Profile</NavLink></li>
-                    {auth ? 
+                    {user ? 
                         <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/logout'>Logout</NavLink></li>
                         : signInANDsingUp
                     }

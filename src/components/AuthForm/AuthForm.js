@@ -1,44 +1,9 @@
 import React, { useState } from 'react';
 import './AuthForm.css';
+import {initialState} from './consts';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
-
-function validateEmail(email) {
-    // eslint-disable-next-line
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
-
-const initialState = {
-    isFormValid: false,
-    isFormTouched: false,
-    formControls: {
-        email: {
-            value: '',
-            type: 'email',
-            label: 'Email',
-            errorMsg: 'Your input is not email...',
-            valid: false,
-            touched: false,
-            validation: {
-                required: true,
-                email: true
-            }
-        },
-        password: {
-            value: '',
-            type: 'password',
-            label: 'Password',
-            errorMsg: 'Your should input proper password...',
-            valid: false,
-            touched: false,
-            validation: {
-                required: true,
-                minLength: 6
-            }               
-        }
-    }
-}
+import {validateEmail} from '../../Utils/validateEmail';
 
 const AuthForm = ({handleAuthSubmit, isLoading}) => {   
 
@@ -50,26 +15,25 @@ const AuthForm = ({handleAuthSubmit, isLoading}) => {
     }
 
     const renderInputs = Object.keys(formObject.formControls).map((controlName, index) => {
-        const control = formObject.formControls[controlName];   
+
+        const {type, value, label, errorMsg, valid, touched, validation } = formObject.formControls[controlName];   
         
         return (
             <Input
                 key={controlName + index}
-                type={control.type}
-                value={control.value}
-                label={control.label}
-                errorMsg={control.errorMsg}
-                valid={control.valid}
-                touched={control.touched}
-                shouldValidate={!!control.validation}
+                type={type}
+                value={value}
+                label={label}
+                errorMsg={errorMsg}
+                valid={valid}
+                touched={touched}
+                shouldValidate={!!validation}
                 onChange={(event) => onChangeHandler(event, controlName)}
-                // type="text" style="display: none" autocomplete="off"
             />
         )
     })       
 
     const validateControl = (value, validation) => {
-        if (!validation) { return true }
         let isValid = true;
         if (validation.required) { isValid = value.trim() !== '' && isValid}
         if (validation.minLength) { isValid = value.trim().length >= validation.minLength && isValid}
@@ -97,7 +61,7 @@ const AuthForm = ({handleAuthSubmit, isLoading}) => {
     
     return (
         <div>
-            <form className='login__form' onSubmit={handleSubmit}>
+            <form className='login__form' onSubmit={handleSubmit} >
                 {renderInputs}
                 <Button type='success' disabled={!(formObject.isFormValid && formObject.isFormTouched) || isLoading}>Submit</Button>
             </form>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Input.css';
 
-const Input = ({ valid, touched, shouldValidate, type, label, value, onChange, errorMsg }) => {
+const Input = ({ valid, touched, shouldValidate, type, label, value, onChange, errorMsg, refInput }) => {   
 
     const isInvalidV = !valid && shouldValidate && touched;
     const inputType = type || 'text'
@@ -18,7 +18,8 @@ const Input = ({ valid, touched, shouldValidate, type, label, value, onChange, e
                     id = {htmlFor}
                     value = {value}
                     onChange = {onChange}
-                    // autocomplete="off"
+                    ref = {refInput}
+                    // autocomplete='off'
                 />
             </label>
             {isInvalidV ? <span>{errorMsg}</span> : null}
