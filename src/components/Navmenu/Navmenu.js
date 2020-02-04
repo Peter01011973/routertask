@@ -19,6 +19,7 @@ const Navmenu = () => {
                     <li className='navmenu__item'> <NavLink className='link' activeClassName='active' exact to='/'>Home</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/news'>News</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/profile'>Profile</NavLink></li>
+                    <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/CRAD'>CRAD</NavLink></li>
                     {user ? 
                         <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/logout'>Logout</NavLink></li>
                         : signInANDsingUp

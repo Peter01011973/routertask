@@ -1,0 +1,28 @@
+.CRAD {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2%;
+    width: 100%;
+    align-items: center;
+}
+
+.item {
+    border: 1px solid silver;
+    padding: 5px;
+
+    display: flex;
+    flex-direction: row;
+    width: 35%;
+    &__title {
+        width: 100%;
+        &:hover {
+            color: red;
+            cursor: pointer;
+        }
+    }
+}
+
+button {
+    padding: 5px;
+    margin: 5px;
+}

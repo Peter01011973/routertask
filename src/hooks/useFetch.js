@@ -9,11 +9,12 @@ const useFetch = (url, payload) => {
     useEffect(() => {
 
         const fetchData = async () => {
+            console.log('fetching')
                
             setIsLoading(true);
             setIsError(false);    
             try {
-                const response = await axios.post(url, payload);
+                const response = await axios(url, payload);
                 setResponse(response);
             } catch (error) {
                 setIsError(true);
@@ -23,7 +24,7 @@ const useFetch = (url, payload) => {
 
         if (payload) fetchData();       
 
-    }, [payload, url]);
+    }, [payload]);
     return [{ response, isLoading, isError }];
 };
 

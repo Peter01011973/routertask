@@ -23,11 +23,22 @@ const Authorization = ({location}) => {
 
     const handleAuthSubmit = (email, password) => {
         
+        // const payload = {
+        //     email,
+        //     password,
+        //     returnSecureToken: true
+        // }
+
         const payload = {
-            email,
-            password,
-            returnSecureToken: true
+            method: 'post',
+            data: {
+                email,
+                password,
+                returnSecureToken: true
+            }
         }
+
+        
         setEmail(email)
         setPayload(payload)
 
@@ -57,3 +68,24 @@ const Authorization = ({location}) => {
 }
 
 export default Authorization
+
+// Request Headers
+// :authority: identitytoolkit.googleapis.com
+// :method: POST
+// :path: /v1/accounts:signInWithPassword?key=AIzaSyBqymITIAQwvv51M9pXu0jnJ2gA8ncXnTA
+// :scheme: https
+// accept: application/json, text/plain, */*
+// accept-encoding: gzip, deflate, br
+// accept-language: en-US,en;q=0.9
+// content-length: 73
+// content-type: application/json;charset=UTF-8
+// origin: http://localhost:3000
+// referer: http://localhost:3000/login
+// sec-fetch-mode: cors
+// sec-fetch-site: cross-site
+// user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36
+// x-client-data: CJK2yQEIprbJAQjBtskBCKmdygEIy67KAQi9sMoBCPe0ygEIlrXKAQjttcoBGKukygE=
+
+
+// Request Payload
+// {email: "maliar@zfort.com", password: "111111", returnSecureToken: true}
