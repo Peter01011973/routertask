@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import useFetch from '../../hooks/useFetch';
 import axios from 'axios';
-// import './CRAD.css'
 
+const writeJsonFile = require('write-json-file');
 const CRAD = () => {
     const [payload, setPayload] = useState(null);
     const [baseAPI, setbaseAPI] = useState('https://jsonplaceholder.typicode.com/posts'); 
@@ -41,7 +41,18 @@ const CRAD = () => {
             method: 'post',
             data: data[count]
         }
-        setPayload(payload);
+        console.log('data', data[count]);
+        const newArr = data.slice(0,12)
+        
+        const fileData = JSON.stringify(newArr);
+        const blob = new Blob([fileData], {type: "text/plain"});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = 'filename.json';
+        link.href = url;
+        link.click();
+          
+        // setPayload(payload);
         setCount(count+1)
 
     }

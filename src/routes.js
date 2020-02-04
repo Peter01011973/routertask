@@ -6,7 +6,7 @@ import Profile from './containers/Profile/Profile';
 import Authorization from './containers/Authorization/Authorization';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Logout from './containers/Logout/Logout';
-import CRAD from './containers/CRAD/CRAD';
+import CRAD from './containers/CRAD1/withFirebase';
 import CRADitem from './components/CRADitem/CARDitem';
 import AddItem from './components/AddItem/AddItem';
 
