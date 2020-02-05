@@ -7,9 +7,7 @@ const useFetch = (url, payload) => {
     const [isError, setIsError] = useState(false);    
 
     useEffect(() => {
-
         const fetchData = async () => {
-            console.log('fetching')
                
             setIsLoading(true);
             setIsError(false);    
@@ -21,16 +19,33 @@ const useFetch = (url, payload) => {
             }
             setIsLoading(false);
         };
-
         if (payload) fetchData();       
-
     }, [payload]);
     return [{ response, isLoading, isError }];
 };
-
 export default useFetch
 
+// export const useGetAllPost = (url, payload) => {
+//     const [response, setResponse] = useState(null);
+//     const [isLoading, setIsLoading] = useState(false);
+//     const [isError, setIsError] = useState(false);    
 
+//     useEffect(() => {
+//         const fetchData = async () => {            
+//             setIsLoading(true);
+//             setIsError(false);    
+//             try {
+//                 const response = await axios(url, payload);
+//                 setResponse(response);
+//             } catch (error) {
+//                 setIsError(true);
+//             }
+//             setIsLoading(false);
+//         };
+//         if (payload) fetchData();       
+//     }, [payload]);
+//     return [{ response, isLoading, isError }];
+// };
 
 // const useFetch = () => {
 //     const [isLoading, setIsLoading] = useState(false);

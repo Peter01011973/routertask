@@ -1,4 +1,4 @@
-.CRAD {
+.container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6,7 +6,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding-top: 2%;
+  padding: 2% 0;
   width: 100%;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -39,4 +39,4 @@ button {
   padding: 5px;
   margin: 5px;
 }
-/*# sourceMappingURL=CRAD.css.map */
+/*# sourceMappingURL=PostAPI.css.map */

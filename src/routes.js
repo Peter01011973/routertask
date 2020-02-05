@@ -6,9 +6,8 @@ import Profile from './containers/Profile/Profile';
 import Authorization from './containers/Authorization/Authorization';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Logout from './containers/Logout/Logout';
-import CRAD from './containers/CRAD1/withFirebase';
 import CRADitem from './components/CRADitem/CARDitem';
-import AddItem from './components/AddItem/AddItem';
+import PostAPI from './containers/postAPI/PostAPI';
 
 const Routes = (
     <Switch>
@@ -16,8 +15,7 @@ const Routes = (
         <Route path='/news'><News /></Route>
         <ProtectedRoute path='/profile' component={Profile} />
         <Route path='/logout' component={Logout} />
-        <Route exact path='/CRAD' component={CRAD} />
-        <Route exact path='/CRAD/add' component={AddItem} />
+        <Route exact path='/post' component={PostAPI} />
         <Route path='/CRAD/:id' component={CRADitem} />
         <Route path='/login' component={Authorization} />
         <Route path='/register' component={Authorization} />
