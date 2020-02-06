@@ -19,7 +19,8 @@ const Navmenu = () => {
                     <li className='navmenu__item'> <NavLink className='link' activeClassName='active' exact to='/'>Home</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/news'>News</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/profile'>Profile</NavLink></li>
-                    <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/post'>CRAD API</NavLink></li>
+                    <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/post'>CRAD(hooks)</NavLink></li>
+                    <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/postclass'>CRAD(class)</NavLink></li>
                     {user ? 
                         <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/logout'>Logout</NavLink></li>
                         : signInANDsingUp
