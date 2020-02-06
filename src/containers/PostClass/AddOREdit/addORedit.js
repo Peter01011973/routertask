@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './addORedit.css';
 
 const AddORedit = ({ afterAddOReditHandle, itemData }) => {
-    console.log('itemData', itemData, afterAddOReditHandle );
     
     const initData = {
         title: itemData ? itemData.title : '',

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../hooks/useFetch';
 import axios from 'axios';
 
 const writeJsonFile = require('write-json-file');
@@ -32,11 +32,7 @@ const CRAD = () => {
 
     const appendItem = () => {
         setbaseAPI('https://task-router.firebaseio.com/post.json');
-        // const payload = {
-        //     method: 'post',
-        //     data
-        // }
-        // setPayload(payload);
+
         const payload = {
             method: 'post',
             data: data[count]
@@ -51,33 +47,12 @@ const CRAD = () => {
         link.download = 'filename.json';
         link.href = url;
         link.click();
-          
-        // setPayload(payload);
         setCount(count+1)
 
     }
 
     if (isLoading) { return <p>Loading...</p>}
     if (isError) return (<p>We have an error</p>)
-
-        // const renderItems = response ? response.data.map(
-        //     (item, index) => {
-        //         return (
-        //             <div key={index} className='item'>
-        //                 <span onClick = {selectItem}>{item.title}</span>
-        //                 <button type="button"
-        //                 // className="btn btn-outline-success btn-sm float-right"
-        //                 // onClick={onToggleImportant}
-        //                 >Delete</button>
-
-        //                 <button type="button"
-        //                 // className="btn btn-outline-danger btn-sm float-right"
-        //                 // onClick={onDelete}
-        //                 >Edit</button>
-        //             </div>
-        //         )
-        //     }
-        // ) : null
 
     return (
 

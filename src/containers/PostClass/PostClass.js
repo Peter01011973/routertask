@@ -1,10 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './PostClass.css';
 import {baseAPI} from '../../globalConst';
-import {Component} from 'react';
 import axios from 'axios';
 import AddOREdit from './AddOREdit/addORedit';
-
 export default class PostClass extends Component {
     constructor(props) {
         super(props);
@@ -15,91 +13,58 @@ export default class PostClass extends Component {
             addNewItem: false,
             editItem: false
         }
-        this.addOREditData=null;
+        this.addOREditData = null;
     }
 
-    async refresh() {
-        this.setState({isLoading: true})
-        try {            
-            const result = await axios(baseAPI, {});
-            this.setState({
-                data: result.data,
-                isLoading: false
-            })
-        } catch(error) {
+    async axiosHandler(url, payload) {
+        this.setState({ isLoading: true })
+        try {
+            const result = await axios(url, payload);
+            if (payload.method === 'GET') {
+                this.setState(
+                    {
+                        data: result.data,
+                        isLoading: false
+                    }
+                )
+            } else {
+                const result = await axios(baseAPI, { method: 'GET' });
+                this.setState({
+                    isLoading: false,
+                    data: result.data
+                })
+            }
+        } catch (error) {
             this.setState({
                 error,
                 isLoading: false
             })
         }
     }
-    
-    componentDidMount() {this.refresh()}
 
-    deleteItem = async id => { 
-        try {            
-            const result = await axios(baseAPI+`/${id}`, {method: 'DELETE'});
-            this.setState({
-                // data: result.data,
-                isLoading: false
-            })
-            this.refresh()
-        } catch(error) {
-            this.setState({
-                error,
-                isLoading: false
-            })
-        }            
+    componentDidMount() { this.axiosHandler(baseAPI, { method: 'GET' }) }
+
+    deleteItem = async id => this.axiosHandler(baseAPI + `/${id}`, { method: 'DELETE' })
+    editItem = Data => {
+        this.addOREditData = Data;
+        this.setState({ editItem: true })
     }
+    selectItem = id => this.props.history.push(`/CRAD/${id}`)
 
+    afterAddOReditHandle = async (data) => {
+        // edit data PATCH
+        if (this.state.editItem) {
+            this.axiosHandler(baseAPI + `/${data.id}`, { method: 'PATCH', data });
+            this.setState({ editItem: false })
+        }
+        // add new item POST
+        if (this.state.addNewItem) {
+            this.axiosHandler(baseAPI, { method: 'POST', data });
+            this.setState({ addNewItem: false })
+        }
+    }
 
     render() {
-
-        const afterAddOReditHandle = async (data) => {
-            
-            // edit data PATCH
-            if (this.state.editItem) {                
-                try {
-                    const result = await axios(baseAPI + `/${data.id}`, { method: 'PATCH', data });
-                    this.setState({
-                        // data: result.data,
-                        isLoading: false
-                    })
-                    this.refresh()
-                } catch (error) {
-                    this.setState({
-                        error,
-                        isLoading: false
-                    })
-                }
-                this.setState({ editItem: false })
-            }
-    
-            // add new item POST
-            if (this.state.addNewItem) {                
-                try {
-                    const result = await axios(baseAPI, { method: 'POST', data });
-                    this.setState({
-                        // data: result.data,
-                        isLoading: false
-                    })
-                    this.refresh()
-                } catch (error) {
-                    this.setState({
-                        error,
-                        isLoading: false
-                    })
-                }
-                this.setState({ addNewItem: false })
-            }
-        }
-    
-
-        const editItem = Data => {
-            this.addOREditData = Data;
-            this.setState({editItem: true})
-        }
-        const selectItem = id => this.props.history.push(`/CRAD/${id}`)
         const { data, isLoading, error } = this.state
 
         if (error) return <p>{error.message}</p>;
@@ -111,9 +76,9 @@ export default class PostClass extends Component {
                 return (
                     <div key={index} className='item'>
                         {/* TODO ask Dima about about using bind to send param */}
-                        <span className='item__title' onClick={selectItem.bind(null, item.id)}>{item.title}</span>
+                        <span className='item__title' onClick={this.selectItem.bind(null, item.id)}>{item.title}</span>
                         <button type="button" onClick={this.deleteItem.bind(null, item.id)}>Delete</button>
-                        <button type="button" onClick={editItem.bind(null, item)}>Edit</button>
+                        <button type="button" onClick={this.editItem.bind(null, item)}>Edit</button>
                     </div>
                 )
             }
@@ -121,8 +86,8 @@ export default class PostClass extends Component {
 
         return (
             <div className='container'>
-                {(!this.state.editItem && !this.state.addNewItem) && <button onClick={() => {this.addOREditData = null; this.setState({addNewItem: true})} }>Add new item</button>}
-                {(this.state.editItem || this.state.addNewItem) && <AddOREdit itemData={this.addOREditData} afterAddOReditHandle={afterAddOReditHandle}/>}
+                {(!this.state.editItem && !this.state.addNewItem) && <button onClick={() => { this.addOREditData = null; this.setState({ addNewItem: true }) }}>Add new item</button>}
+                {(this.state.editItem || this.state.addNewItem) && <AddOREdit itemData={this.addOREditData} afterAddOReditHandle={this.afterAddOReditHandle} />}
                 {renderItems}
             </div>
         );
