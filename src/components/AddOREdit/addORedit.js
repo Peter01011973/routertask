@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './addORedit.css';
 
 const AddORedit = ({ afterAddOReditHandle, itemData }) => {
@@ -9,6 +9,7 @@ const AddORedit = ({ afterAddOReditHandle, itemData }) => {
         userId: itemData ? itemData.userId : 1,
         id: itemData ? itemData.id : null
     }
+    const inputRef = useRef();
     const [data, setData] = useState(initData);
 
     const submitHandler = (event) => {
@@ -16,10 +17,19 @@ const AddORedit = ({ afterAddOReditHandle, itemData }) => {
         afterAddOReditHandle(data);
     }
 
+    useEffect(
+        () => {inputRef.current.focus();}
+    ,[])
+
     return (
         <form onSubmit={submitHandler}>
             <label>Title:
-                <input type='text' value={data.title} onChange={event => setData({...data, title: event.target.value })} />
+                <input 
+                    type='text' 
+                    value={data.title} 
+                    onChange={event => setData({...data, title: event.target.value })} 
+                    ref={inputRef}
+                />
             </label>
             <label>Body:
                 <input type='text' value={data.body} onChange={event => setData({...data, body: event.target.value })} />
