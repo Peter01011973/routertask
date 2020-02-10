@@ -6,7 +6,7 @@ import axios from 'axios';
 import CARDrender from '../../components/CARDrender/CARDrender';
 
 const CRADhooks = ({ history }) => {
-    const [data, setData] = useState(null);
+    const [posts, setPosts] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [addNewItem, setAddNewItem] = useState(false);
@@ -18,10 +18,18 @@ const CRADhooks = ({ history }) => {
         try {
             const result = await axios(url, payload);
             if (payload.method === 'GET') {
-                setData(result.data)
+                setPosts(result.data)
             } else {
-                const result = await axios(baseAPI, { method: 'GET' });
-                setData(result.data)
+                if (result.statusText === 'OK' || result.statusText === 'Created') {
+                    switch (result.config.method.toLowerCase().trim()) {
+                        case 'patch': setPosts([...posts.map(post => post.id === result.data.id ? result.data : post)]); break;
+                        case 'delete': setPosts([...posts.filter(post => +post.id !== +result.config.url.match(/\/([0-9]+)\/?$/)[1])]); break;   
+                        case 'post': setPosts([...posts, result.data]); break;
+                        default: setPosts([...posts])
+                    } 
+                }
+                // const res = await axios(baseAPI, { method: 'GET' });
+                // setPosts(res.data)
             }
         } catch (error) {
             setError(error)
@@ -61,7 +69,7 @@ const CRADhooks = ({ history }) => {
         <CARDrender
             error={error}
             isLoading={isLoading}
-            data={data}
+            data={posts}
             editItem={editItem}
             addNewItem={addNewItem}
             addOREditData={addOREditData}
