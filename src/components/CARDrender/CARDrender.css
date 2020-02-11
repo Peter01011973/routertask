@@ -102,4 +102,8 @@ tr:last-child td:last-child {
 tr td:last-child {
   border-right: none;
 }
+
+.table-row:hover td {
+  background: yellow;
+}
 /*# sourceMappingURL=CARDrender.css.map */

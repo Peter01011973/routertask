@@ -1,15 +1,11 @@
 import React from 'react';
 import AddOREdit from '../AddOREdit/addORedit';
 import './CARDrender.css';
-// import { TablePagination } from '@trendmicro/react-paginations';
-// import '@trendmicro/react-paginations/dist/react-paginations.css';
 
 const CARDrender = ({
         error, isLoading, data, addNewItem, selectItemHandler, editItem,
         deleteItemHandler, editItemHandler, onAddHandler, addOREditData, afterAddOReditHandle
 }) => {
-
-console.log('data333',data);
 
 if (error) return <p>{error.message}</p>;
 if (isLoading) return <p>Loading ...</p>;
@@ -29,9 +25,9 @@ if (!data) { return <p>No data yet ...</p>; }
                 </thead>
                 <tbody>
                     {data.map(
-                        (item, index) => {
+                        (item) => {
                             return (
-                                <tr key={item.id}>
+                                <tr key={item.id} onClick={() => selectItemHandler(item.id)} className='table-row'>
                                     <td>{item.id}</td>
                                     <td>{item.title}</td>
                                     <td>{item.body}</td>

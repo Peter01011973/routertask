@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { baseAPI } from '../../globalConst';
 import './PostAPI.css';
 import axios from 'axios';
-// import Pagination from "react-js-pagination";
 import CARDrender from '../../components/CARDrender/CARDrender';
 
 const CRADhooks = ({ history }) => {
@@ -17,19 +16,14 @@ const CRADhooks = ({ history }) => {
         setIsLoading(true);
         try {
             const result = await axios(url, payload);
-            if (payload.method === 'GET') {
-                setPosts(result.data)
-            } else {
-                if (result.statusText === 'OK' || result.statusText === 'Created') {
-                    switch (result.config.method.toLowerCase().trim()) {
-                        case 'patch': setPosts([...posts.map(post => post.id === result.data.id ? result.data : post)]); break;
-                        case 'delete': setPosts([...posts.filter(post => +post.id !== +result.config.url.match(/\/([0-9]+)\/?$/)[1])]); break;   
-                        case 'post': setPosts([...posts, result.data]); break;
-                        default: setPosts([...posts])
-                    } 
+            if (result.statusText === 'OK' || result.statusText === 'Created') {
+                switch (result.config.method.toLowerCase().trim()) {
+                    case 'patch': setPosts([...posts.map(post => post.id === result.data.id ? result.data : post)]); break;
+                    case 'delete': setPosts([...posts.filter(post => +post.id !== +result.config.url.match(/\/([0-9]+)\/?$/)[1])]); break;
+                    case 'post': setPosts([...posts, result.data]); break;
+                    case 'get': setPosts(result.data); break;
+                    default: setPosts([...posts])
                 }
-                // const res = await axios(baseAPI, { method: 'GET' });
-                // setPosts(res.data)
             }
         } catch (error) {
             setError(error)
@@ -38,7 +32,10 @@ const CRADhooks = ({ history }) => {
     }
 
     useEffect(() => {
-        axiosHandler(baseAPI, { method: 'GET' })
+        let cancelled = false;
+        console.log('axiosHandler');       
+        if (!cancelled) axiosHandler(baseAPI, { method: 'GET' })
+        return () => cancelled = true;
     }, []);
 
     const deleteItemHandler = id => axiosHandler(`${baseAPI}/${id}`, { method: 'DELETE' })
