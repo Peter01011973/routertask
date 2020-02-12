@@ -1,6 +1,7 @@
 import React from 'react';
 import AddOREdit from '../AddOREdit/addORedit';
-import './CARDrender.css';
+import './PostsListRender.css';
+import PostItemRender from './PostItemRender/PostItemRender';
 
 const CARDrender = ({
         error, isLoading, data, addNewItem, selectItemHandler, editItem,
@@ -27,21 +28,14 @@ if (!data) { return <p>No data yet ...</p>; }
                     {data.map(
                         (item) => {
                             return (
-                                <tr key={item.id} onClick={() => selectItemHandler(item.id)} className='table-row'>
-                                    <td>{item.id}</td>
-                                    <td>{item.title}</td>
-                                    <td>{item.body}</td>
-                                    <td>{item.userId}</td>
-                                    <td>
-                                        <button type="button" disabled={isLoading} onClick={() => deleteItemHandler(item.id)}>Delete</button>
-                                        <button type="button" disabled={isLoading} onClick={() => editItemHandler(item)}>Edit</button>
-                                    </td>
-                                </tr>
-                                // <div key={index} className='item'>
-                                //     <span className='item__title' onClick={() => selectItemHandler(item.id)}>{item.title}</span>
-                                //     <button type="button" onClick={() => deleteItemHandler(item.id)}>Delete</button>
-                                //     <button type="button" onClick={() =>editItemHandler(item)}>Edit</button>
-                                // </div>
+                                <PostItemRender 
+                                    key = {item.id}
+                                    item = {item} 
+                                    deleteItemHandler={deleteItemHandler} 
+                                    editItemHandler={editItemHandler} 
+                                    selectItemHandler={selectItemHandler} 
+                                    isLoading={isLoading}
+                                />
                             )
                         }
                     )}

@@ -16,8 +16,8 @@ const Authorization = ({location}) => {
 
     const [{response, isLoading, isError}] = useFetch(baseAPI, payload);
     const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false);
-    const [email, setEmail] = useState(null)
-    const [,setUser] = useContext(CurrentUserContext)
+    const [email, setEmail] = useState(null);
+    const [,setUser] = useContext(CurrentUserContext);
     
     const authTitle = isSignin ? 'Sign IN' : 'Sign UP';
 
@@ -28,7 +28,6 @@ const Authorization = ({location}) => {
         //     password,
         //     returnSecureToken: true
         // }
-
         const payload = {
             method: 'post',
             data: {
@@ -36,9 +35,7 @@ const Authorization = ({location}) => {
                 password,
                 returnSecureToken: true
             }
-        }
-
-        
+        }       
         setEmail(email)
         setPayload(payload)
 
@@ -49,7 +46,6 @@ const Authorization = ({location}) => {
             localStorage.setItem('token', response.data.localId);
             localStorage.setItem('email',email);
             setIsSuccessfullSubmit(true);
-            // ???
             setUser(email);
         }
     }, [email, response, setUser])

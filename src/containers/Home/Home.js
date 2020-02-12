@@ -2,9 +2,9 @@ import React, {useRef} from 'react';
 import './Home.css';
 import logo from './logo.svg';
 import {connect} from 'react-redux';
-import {addTrack, deleteTrack, addSearchTrack} from '../../redux/actions';
+import {addTrack, deleteTrack, addSearchTrack, addTracks} from '../../redux/actions';
 
-const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack }) => {
+const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack, addTracks }) => {
     const trackInput = useRef('');
     const trackSearch = useRef('');
 
@@ -13,8 +13,23 @@ const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack }) => {
         trackInput.current.value = ''
     }
 
+    const getTracksHandler = () => {
+        const mockData = [
+            'Song with thunk 1',
+            'Song with thunk 2',
+            'Song with thunk 3'
+        ]
+        setTimeout(()=>{
+            addTracks(mockData)
+        }, 3000)
+    }
+
+    const getTracksThunkHandler = () => {       
+    }
+    
     return (
         <div className='home'>
+            {/* <TrainingContext.Consumer> */}
             <div className='title'>
                 <h1>React Router is an awesome tool!</h1>
                 <img src={logo} className="App-logo" alt="logo" />
@@ -36,7 +51,8 @@ const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack }) => {
                         <button onClick={() => { addSearchTrack(trackSearch.current.value) }}>Search track</button>                   
                 </div>
                 <div className='get-track'>
-                    <button>Get track</button>   
+                    <button onClick={getTracksHandler}>Get tracks</button>   
+                    {/* <button onClick={getTracksThunkHandler}>Get tracks with thunk</button>    */}
                 </div>
                 </div>
                 <ul className='tracks'>
@@ -49,6 +65,7 @@ const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack }) => {
                     })}
                 </ul>
             </div>
+            {/* </TrainingContext.Consumer> */}
         </div>
     )
 }
@@ -61,12 +78,23 @@ const mapStateToProps = ({reducerTrack: {tracks}, searchReducer}) => {
 
 // const mapDispatchToProps = (dispatch) => {
 //     return {
-//         addTrack: (track) => dispatch({type: "ADD_TRACK", payload: track}),
-//         deleteTrack: (track) => dispatch({type: "DELETE_TRACK", payload: track}),
-//         addSearchTrack: (track) => dispatch({type: "ADD_SEARCH_TRACK", payload: track})
+//         addTrack: (track) => dispatch({ type: "ADD_TRACK", payload: track }),
+//         deleteTrack: (track) => dispatch({ type: "DELETE_TRACK", payload: track }),
+//         addSearchTrack: (track) => dispatch({ type: "ADD_SEARCH_TRACK", payload: track }),
+//         onGetTracks: () => {
+//             const asyncGetTracks = () => {
+//                 return dispatch => {
+//                     setTimeout(() => {
+//                         console.log('I got tracks');
+//                         dispatch({ type: 'FETCH_TRACKS_SUCCESS', payload: [] });
+//                     }, 2000)
+//                 }
+//             }
+//             dispatch(asyncGetTracks());
+//         }
 //     }
 // }
 
-const mapDispatchToProps = { addTrack, deleteTrack, addSearchTrack }
+const mapDispatchToProps = { addTrack, deleteTrack, addSearchTrack, addTracks }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

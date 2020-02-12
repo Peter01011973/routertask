@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './PostClass.css';
+import './PostsListWithClass.css';
 import { baseAPI } from '../../globalConst';
 import axios from 'axios';
-import CARDrender from '../../components/CARDrender/CARDrender';
+import CARDrender from '../../components/PostsListRender/PostsListRender';
 export default class PostClass extends Component {
     constructor(props) {
         super(props);
@@ -44,8 +44,12 @@ export default class PostClass extends Component {
 
     componentDidMount() { this.axiosHandler(baseAPI, { method: 'GET' }) }
 
-    deleteItemHandler = async id => this.axiosHandler(baseAPI + `/${id}`, { method: 'DELETE' })
-    editItemHandler = Data => {
+    deleteItemHandler = async (event, id) => {
+        event.stopPropagation();
+        this.axiosHandler(baseAPI + `/${id}`, { method: 'DELETE' })
+    }
+    editItemHandler = (event, Data) => {
+        event.stopPropagation();
         this.addOREditData = Data;
         this.setState({ editItem: true })
     }

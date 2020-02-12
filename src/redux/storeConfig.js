@@ -1,7 +1,7 @@
 import {createStore, applyMiddleware, combineReducers  } from 'redux';
-import reducer from '../redux/reducers/reducer';
-import reducerTrack from '../redux/reducers/reducersTrack';
-import searchReducer from '../redux/reducers/searchReducer';
+import reducer from './reducers/reducer';
+import reducerTrack from './reducers/reducersTrack';
+import searchReducer from './reducers/searchReducer';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 

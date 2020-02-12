@@ -1,7 +1,9 @@
+import {add_search_track} from '../const';
+
 const initialTracks = ''
 const searchReducer = (state = initialTracks, action) => {
     switch (action.type) {
-        case 'ADD_SEARCH_TRACK': return action.payload;
+        case add_search_track: return action.payload;
         default: return state
     }
 }

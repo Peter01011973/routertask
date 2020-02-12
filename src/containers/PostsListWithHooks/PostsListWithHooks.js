@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { baseAPI } from '../../globalConst';
-import './PostAPI.css';
+import './PostsListWithHooks.css';
 import axios from 'axios';
-import CARDrender from '../../components/CARDrender/CARDrender';
+import CARDrender from '../../components/PostsListRender/PostsListRender';
 
 const CRADhooks = ({ history }) => {
     const [posts, setPosts] = useState(null);
@@ -16,6 +16,7 @@ const CRADhooks = ({ history }) => {
         setIsLoading(true);
         try {
             const result = await axios(url, payload);
+            
             if (result.statusText === 'OK' || result.statusText === 'Created') {
                 switch (result.config.method.toLowerCase().trim()) {
                     case 'patch': setPosts([...posts.map(post => post.id === result.data.id ? result.data : post)]); break;
@@ -32,13 +33,15 @@ const CRADhooks = ({ history }) => {
     }
 
     useEffect(() => {
-        let cancelled = false;
-        console.log('axiosHandler');       
+        let cancelled = false;    
         if (!cancelled) axiosHandler(baseAPI, { method: 'GET' })
         return () => cancelled = true;
     }, []);
 
-    const deleteItemHandler = id => axiosHandler(`${baseAPI}/${id}`, { method: 'DELETE' })
+    const deleteItemHandler = (event, id) =>{ 
+        event.stopPropagation(); 
+        axiosHandler(`${baseAPI}/${id}`, { method: 'DELETE' })
+    }
 
     const afterAddOReditHandle = data => {
         if (editItem) {
@@ -51,7 +54,8 @@ const CRADhooks = ({ history }) => {
         }
     }
 
-    const editItemHandler = Data => {
+    const editItemHandler = (event, Data) => {
+        event.stopPropagation();
         setAddOREditData(Data);
         setEditItem(true)
     }

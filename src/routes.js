@@ -7,8 +7,9 @@ import Authorization from './containers/Authorization/Authorization';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Logout from './containers/Logout/Logout';
 import CRADitem from './components/CRADitem/CARDitem';
-import PostAPI from './containers/postAPI/PostAPI';
-import PostClass from './containers/PostClass/PostClass';
+import PostAPI from './containers/PostsListWithHooks/PostsListWithHooks';
+import PostClass from './containers/PostsListWithClass/PostsListWithClass';
+import Products from './containers/Products/Products';
 
 const Routes = (
     <Switch>
@@ -16,6 +17,7 @@ const Routes = (
         <Route path='/news'><News /></Route>
         <ProtectedRoute path='/profile' component={Profile} />
         <Route path='/logout' component={Logout} />
+        <Route path='/products' component={Products} />
         <Route path='/postclass' component={PostClass} />
         <Route exact path='/post' component={PostAPI} />
         <Route path='/CRAD/:id' component={CRADitem} />
