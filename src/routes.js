@@ -10,6 +10,7 @@ import CRADitem from './components/CRADitem/CARDitem';
 import PostAPI from './containers/PostsListWithHooks/PostsListWithHooks';
 import PostClass from './containers/PostsListWithClass/PostsListWithClass';
 import Products from './containers/Products/Products';
+import Cart from './containers/Cart/Cart';
 
 const Routes = (
     <Switch>
@@ -18,6 +19,7 @@ const Routes = (
         <ProtectedRoute path='/profile' component={Profile} />
         <Route path='/logout' component={Logout} />
         <Route path='/products' component={Products} />
+        <Route path='/cart' component={Cart} />
         <Route path='/postclass' component={PostClass} />
         <Route exact path='/post' component={PostAPI} />
         <Route path='/CRAD/:id' component={CRADitem} />

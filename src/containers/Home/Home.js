@@ -23,9 +23,6 @@ const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack, addTracks }) => {
             addTracks(mockData)
         }, 3000)
     }
-
-    const getTracksThunkHandler = () => {       
-    }
     
     return (
         <div className='home'>

@@ -20,6 +20,7 @@ const Navmenu = () => {
                     <li className='navmenu__item'> <NavLink className='link' activeClassName='active' exact to='/'>Home</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/news'>News</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/products'>Products</NavLink></li>
+                    <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/cart'>Cart</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/profile'>Profile</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/post'>CRUD (hooks)</NavLink></li>
                     <li className='navmenu__item'><NavLink className='link' activeClassName='active' to='/postclass'>CRUD (class)</NavLink></li>

@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "AAAA,AAAA,UAAU,CAAC;EACP,OAAO,EAAE,IAAI;CAEhB",
     "sources": [
-        "PostClass.scss"
+        "PostsListWithClass.scss"
     ],
     "names": [],
-    "file": "PostClass.css"
+    "file": "PostsListWithClass.css"
 }
