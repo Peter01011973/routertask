@@ -5,7 +5,7 @@ import ProductsRender from '../../components/ProductsRender/ProductsRender';
 
 const Products = () => {
     const [addProduct, setAddProduct] = useState(false);
-    const { products, dispatchProd, dispatchCart, cart } = useContext(ProductsContext);
+    const { products, dispatchProd, dispatchCart } = useContext(ProductsContext);
 
     const addProductFormSubmit = (event, product) => {
         event.preventDefault();
@@ -19,7 +19,6 @@ const Products = () => {
         dispatchCart(addToCartAction(product));
         dispatchProd(reduceCountAction(product));
     }
-    console.log('cart', cart);
     
     return (
         <ProductsRender

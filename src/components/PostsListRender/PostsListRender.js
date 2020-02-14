@@ -8,7 +8,7 @@ const CARDrender = ({
         deleteItemHandler, editItemHandler, onAddHandler, addOREditData, afterAddOReditHandle
 }) => {
 
-if (error) return <p>{error.message}</p>;
+if (error) return <p>{error}</p>;
 if (isLoading) return <p>Loading ...</p>;
 if (!data) { return <p>No data yet ...</p>; }
 

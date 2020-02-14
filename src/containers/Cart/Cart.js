@@ -1,18 +1,23 @@
 import React, {useContext} from 'react';
 import {ProductsContext} from '../../HOC/context/ProductsContext';
-import {deletePoductFromCartAction, increaseProductFromCartAction, reduceProductFromCartAction, reduceCountAction, increaseCountAction} from '../../HOC/context/actions';
+import {
+    deletePoductFromCartAction, increaseProductFromCartAction, reduceProductFromCartAction, reduceCountAction, increaseCountAction, returnProductFromCart
+} from '../../HOC/context/actions';
 import './cart.css';
 
 const Cart = () => {
     const { products, cart, dispatchCart, dispatchProd } = useContext(ProductsContext);
-    const deleteProductFromCart = product => dispatchCart(deletePoductFromCartAction(product));
+    const deleteProductFromCart = product => {
+        dispatchCart(deletePoductFromCartAction(product));
+        dispatchProd(returnProductFromCart(product))
+    }
     const reduceProductFromCart = product => {
         dispatchCart(reduceProductFromCartAction(product));
         dispatchProd(increaseCountAction(product))
     }
     const increaseProductFromCart = (product) => {
         let maxCount = 0;
-        products.forEach(product => {if (product.productName === product.productName) {maxCount = product.productQuantity}}); 
+        products.forEach(item => {if (item.productName === product.productName) {maxCount = item.productQuantity}}); 
         if (maxCount !== 0) {
             dispatchCart(increaseProductFromCartAction(product));
             dispatchProd(reduceCountAction(product))

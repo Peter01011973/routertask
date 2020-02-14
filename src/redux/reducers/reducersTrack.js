@@ -1,4 +1,4 @@
-import { add_track, delete_track, add_tracks} from '../const';
+import { ADD_TRACK, DELETE_TRACK, ADD_TRACKS} from '../actionTypes';
 
 const initialTracks = {
     tracks: ['only U...']
@@ -6,9 +6,9 @@ const initialTracks = {
 
 const reducerTracks = (state = initialTracks, action) => {
     switch (action.type) {
-        case add_track: return { tracks: [...state.tracks, action.payload] };
-        case delete_track: return { tracks: state.tracks.filter(track => action.payload.localeCompare(track)) };
-        case add_tracks: return {tracks: [...state.tracks, ...action.payload]}
+        case ADD_TRACK: return { tracks: [...state.tracks, action.payload] };
+        case DELETE_TRACK: return { tracks: state.tracks.filter(track => action.payload.localeCompare(track)) };
+        case ADD_TRACKS: return {tracks: [...state.tracks, ...action.payload]}
         default: return state
     }
 }

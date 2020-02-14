@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { baseAPI } from '../../globalConst';
 import './PostsListWithHooks.css';
-import axios from 'axios';
-import CARDrender from '../../components/PostsListRender/PostsListRender';
+import CRUDrender from '../../components/PostsListRender/PostsListRender';
+import {getAllPostsAPI, deletePostAPI, editPostAPI, addPostAPI} from '../../services/PostAPIService/PostAPIService';
+import { useDispatch, useSelector } from 'react-redux';
+import { appendPosts, appendPost, deletePost, updatePost } from '../../redux/actions';
 
 const CRADhooks = ({ history }) => {
     const [posts, setPosts] = useState(null);
@@ -11,45 +12,48 @@ const CRADhooks = ({ history }) => {
     const [addNewItem, setAddNewItem] = useState(false);
     const [editItem, setEditItem] = useState(false);
     const [addOREditData, setAddOREditData] = useState(false);
-
-    const axiosHandler = async (url, payload) => {
+    const [cancelled, setCancelled] = useState(false);
+    const dispatch = useDispatch();
+    const posts1 = useSelector(state => state.reducerPosts.posts);
+    
+    const responseHandler = async (method) => {
         setIsLoading(true);
-        try {
-            const result = await axios(url, payload);
-            
-            if (result.statusText === 'OK' || result.statusText === 'Created') {
-                switch (result.config.method.toLowerCase().trim()) {
-                    case 'patch': setPosts([...posts.map(post => post.id === result.data.id ? result.data : post)]); break;
-                    case 'delete': setPosts([...posts.filter(post => +post.id !== +result.config.url.match(/\/([0-9]+)\/?$/)[1])]); break;
-                    case 'post': setPosts([...posts, result.data]); break;
-                    case 'get': setPosts(result.data); break;
+        if (cancelled) return;
+        method().then(result => {
+            const { response, success, message } = result;
+            if (!success) { setError(message) }
+            else {
+                switch (response.config.method.toLowerCase().trim()) {
+                    case 'patch': dispatch(updatePost(response.data)); break; // setPosts([...posts.map(post => post.id === response.data.id ? response.data : post)]); break;
+                    case 'delete': dispatch(deletePost(+response.config.url.match(/\/([0-9]+)\/?$/)[1]));  break; // setPosts([...posts.filter(post => +post.id !== +response.config.url.match(/\/([0-9]+)\/?$/)[1])]); break;
+                    case 'post': dispatch(appendPost(response.data));  break;// setPosts([...posts, response.data]);
+                    case 'get': dispatch(appendPosts(response.data)); break;// setPosts(response.data);              
                     default: setPosts([...posts])
                 }
             }
-        } catch (error) {
-            setError(error)
-        }
-        setIsLoading(false);
+            setIsLoading(false);
+        })            
     }
 
     useEffect(() => {
-        let cancelled = false;    
-        if (!cancelled) axiosHandler(baseAPI, { method: 'GET' })
-        return () => cancelled = true;
+        setCancelled(false)    
+        responseHandler(getAllPostsAPI)
+        return () => setCancelled(true);
+        // eslint-disable-next-line
     }, []);
 
     const deleteItemHandler = (event, id) =>{ 
         event.stopPropagation(); 
-        axiosHandler(`${baseAPI}/${id}`, { method: 'DELETE' })
+        responseHandler(() =>deletePostAPI(id))
     }
 
     const afterAddOReditHandle = data => {
         if (editItem) {
-            axiosHandler(`${baseAPI}/${data.id}`, { method: 'PATCH', data })
+            responseHandler(editPostAPI.bind(null, data))
             setEditItem(false)
         }
         if (addNewItem) {
-            axiosHandler(`${baseAPI}`, { method: 'POST', data })
+            responseHandler(addPostAPI.bind(null, data))
             setAddNewItem(false)
         }
     }
@@ -67,10 +71,10 @@ const CRADhooks = ({ history }) => {
     }
 
     return (
-        <CARDrender
+        <CRUDrender
             error={error}
             isLoading={isLoading}
-            data={posts}
+            data={posts1}
             editItem={editItem}
             addNewItem={addNewItem}
             addOREditData={addOREditData}
@@ -82,4 +86,5 @@ const CRADhooks = ({ history }) => {
         />
     )
 }
+
 export default CRADhooks

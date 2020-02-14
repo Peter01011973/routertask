@@ -26,7 +26,6 @@ const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack, addTracks }) => {
     
     return (
         <div className='home'>
-            {/* <TrainingContext.Consumer> */}
             <div className='title'>
                 <h1>React Router is an awesome tool!</h1>
                 <img src={logo} className="App-logo" alt="logo" />
@@ -49,7 +48,6 @@ const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack, addTracks }) => {
                 </div>
                 <div className='get-track'>
                     <button onClick={getTracksHandler}>Get tracks</button>   
-                    {/* <button onClick={getTracksThunkHandler}>Get tracks with thunk</button>    */}
                 </div>
                 </div>
                 <ul className='tracks'>
@@ -62,7 +60,6 @@ const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack, addTracks }) => {
                     })}
                 </ul>
             </div>
-            {/* </TrainingContext.Consumer> */}
         </div>
     )
 }

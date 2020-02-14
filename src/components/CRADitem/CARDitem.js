@@ -2,18 +2,19 @@ import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import {baseAPI} from '../../globalConst';
+import {connect} from 'react-redux';
 
-const CRADitem = () => {
+const CRADitem = ({posts}) => {
     const {id} = useParams();
-    const [payload, setPayload] = useState(null);
-    // const [baseAPI, setbaseAPI] = useState('https://jsonplaceholder.typicode.com/posts');
-    // const [{ response, isLoading, isError }] = useFetch(`https://jsonplaceholder.typicode.com/posts/${id}`, payload);
-    const [{ response, isLoading, isError }] = useFetch(`${baseAPI}/${id}`, payload);
+    const [payload, setPayload] = useState({});
+
+    // if (posts && posts.length > 0) 
+    const [{ response, isLoading, isError }] = useFetch(`${baseAPI}/${id}`,payload);
     // const [data, setData] = useState(null);
     
-    useEffect(
-        () => setPayload({}), []
-    )
+    // useEffect(
+    //     () => setPayload({}), []
+    // )
 
     if (isLoading) return <p>Loading...</p> 
     if (isError) return (<p>We have an error</p>)
@@ -33,4 +34,11 @@ const CRADitem = () => {
     )
 }
 
-export default CRADitem
+const mapStateToProps = (state) => {
+    
+    return {
+        posts: state.reducerPosts.posts
+    }
+}  
+
+export default connect(mapStateToProps)(CRADitem)

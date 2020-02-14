@@ -7,3 +7,4 @@ export const addToCartAction = (product) => ({type: 'ADD_TO_CART', payload: prod
 export const deletePoductFromCartAction = (product) => ({type: 'DELETE_PRODUCT_FROM_CART', payload: product})
 export const reduceProductFromCartAction = (product) => ({type: 'REDUCE_PRODUCT_FROM_CART', payload: product});
 export const increaseProductFromCartAction = (product) => ({type: 'INCREASE_PRODUCT_FROM_CART', payload: product})
+export const returnProductFromCart = (product) => ({type: 'RETURN_PRODUCT_FROM_CART', payload: product})
