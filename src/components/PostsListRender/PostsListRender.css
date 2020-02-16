@@ -106,4 +106,9 @@ tr td:last-child {
 .table-row:hover td {
   background: yellow;
 }
+
+.loading {
+  padding: 5px;
+  margin: 5px;
+}
 /*# sourceMappingURL=PostsListRender.css.map */

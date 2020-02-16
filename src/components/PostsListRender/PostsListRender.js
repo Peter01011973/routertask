@@ -3,14 +3,13 @@ import AddOREdit from '../AddOREdit/addORedit';
 import './PostsListRender.css';
 import PostItemRender from './PostItemRender/PostItemRender';
 
-const CARDrender = ({
+const PostsListRender = ({
         error, isLoading, data, addNewItem, selectItemHandler, editItem,
         deleteItemHandler, editItemHandler, onAddHandler, addOREditData, afterAddOReditHandle
 }) => {
 
-if (error) return <p>{error}</p>;
-if (isLoading) return <p>Loading ...</p>;
-if (!data) { return <p>No data yet ...</p>; }
+// if (!data) { return <p>No data yet ...</p>; }
+if (error) { return <p>Error ...</p>; }
 
     const renderItems = data ?
         (
@@ -45,10 +44,10 @@ if (!data) { return <p>No data yet ...</p>; }
 
     return (
         <div className='container'>
-            {(!editItem && !addNewItem) && <button disabled={isLoading} onClick={() => { onAddHandler() }}>Add new item</button>}
+            {isLoading ? <p className='loading'>Loading ...</p> : (!editItem && !addNewItem) && <button disabled={isLoading} onClick={() => { onAddHandler() }}>Add new item</button>}
             {(editItem || addNewItem) && <AddOREdit itemData={addOREditData} afterAddOReditHandle={afterAddOReditHandle} />}
             {renderItems}
         </div>
     );
 }
-export default CARDrender
+export default PostsListRender

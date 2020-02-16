@@ -1,12 +1,15 @@
-import React, {useRef} from 'react';
+import React, {useRef, useContext} from 'react';
 import './Home.css';
 import logo from './logo.svg';
 import {connect} from 'react-redux';
 import {addTrack, deleteTrack, addSearchTrack, addTracks} from '../../redux/actions';
+import { myContext } from '../../App';
 
 const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack, addTracks }) => {
     const trackInput = useRef('');
     const trackSearch = useRef('');
+
+    const {thing, dispatch} = useContext(myContext);
 
     const addTrackHandler = () => {
         addTrack(trackInput.current.value);
@@ -27,8 +30,10 @@ const Home = ({ tracks, addTrack, deleteTrack, addSearchTrack, addTracks }) => {
     return (
         <div className='home'>
             <div className='title'>
-                <h1>React Router is an awesome tool!</h1>
+            <h1>React Router is an awesome tool!{thing}</h1>
                 <img src={logo} className="App-logo" alt="logo" />
+                <button onClick= {()=>dispatch({type: 'PREPARE_TEA'})}>Prepare tea</button>
+                <button onClick= {()=>dispatch({type: 'PREPARE_COFFEE'})}>Prepare coffee</button>
             </div>
             <div className='track'>
                 <div className='home__form'>

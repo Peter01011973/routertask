@@ -3,8 +3,8 @@ import {productsReducer, cartReducer} from './ProductsReducer';
 
 export const ProductsContext = createContext(null);
 const ProductsContextProvider = ({children}) => {
-    const initialState = [];
-    const [products, dispatchProd] = useReducer(productsReducer, initialState);
+
+    const [products, dispatchProd] = useReducer(productsReducer, []);
     const [cart, dispatchCart] = useReducer(cartReducer, []);
     
     return (
