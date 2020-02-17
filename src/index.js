@@ -6,9 +6,9 @@ import { CurrentUserProvider } from './HOC/context/CurrentUser';
 import { Provider } from 'react-redux';
 import store, {sagaMiddleware} from './redux/storeConfig';
 import ProductsContextProvider from './HOC/context/ProductsContext';
+import rootSaga from './saga/rootSaga';
 
 const app = (
-
     <CurrentUserProvider>
         <ProductsContextProvider>
             <Provider store={store}>
@@ -18,9 +18,8 @@ const app = (
             </Provider>
         </ProductsContextProvider>
     </CurrentUserProvider>
-
 )
 
-// sagaMiddleware.run(mySaga);
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(app, document.getElementById('root'));

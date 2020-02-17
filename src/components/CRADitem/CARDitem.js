@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import {baseAPI} from '../../globalConst';
 import {connect} from 'react-redux';
 
-const CRADitem = ({posts}) => {
+const CRADitem = () => {
     const {id} = useParams();
-    const [payload, setPayload] = useState({});
+    const [payload] = useState({});
 
     // if (posts && posts.length > 0) 
     const [{ response, isLoading, isError }] = useFetch(`${baseAPI}/${id}`,payload);
